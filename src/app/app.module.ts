@@ -1,20 +1,32 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { RouterModule } from '@angular/router';
+
+import { AppRoutingModule } from './app.routing.module';
+import { AuthRoutingModule } from './feature/auth/auth.routing.module';
 
 import { AppComponent } from './app.component';
-import { AuthenticateFormComponent } from './shared/components/authenticate-form/authenticate-form.component';
+
+// Modules
+import { AuthModule } from './feature/auth/auth.module';
+import { RouterModule } from '@angular/router';
+import { HomeModule } from './feature/home/home.module';
+import { AuthenticateFormModule } from './shared/components/authenticate-form/authenticate-form.module';
+
 
 @NgModule({
   declarations: [
     AppComponent,
-    AuthenticateFormComponent,
   ],
   imports: [
     BrowserModule,
-    RouterModule
+    AppRoutingModule,
+    AuthRoutingModule,
+    AuthenticateFormModule,
+    AuthModule,
+    RouterModule,
+    HomeModule
   ],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [ AppComponent ]
 })
 export class AppModule { }

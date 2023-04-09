@@ -1,1 +1,71 @@
-<p>authenticate-form works!</p>
+<div class="container">
+    <form class="w-25 ms-auto me-auto" #authForm="ngForm" (ngSubmit)="authSubmit(authForm)" >
+
+        <!-- Register form -->
+        <div class="ng-container" *ngIf="authFormType === 'register'">
+            <div class="row">
+                <div class="col-12 mb-1">
+                    <label for="username">Username</label>
+                    <input type="text" name="username" [(ngModel)]="user.username" class="form-control">
+                </div>
+                <div class="col-12 mb-1">
+                    <label for="email">Email</label>
+                    <input type="email" name="email" [(ngModel)]="user.email" class="form-control">
+                </div>
+                <div class="col-12 mb-1">
+                    <label for="password">Password</label>
+                    <input type="password" name="password" [(ngModel)]="user.password" class="form-control">
+                </div>
+                <div class="col-12 mb-1">
+                    <label for="confirmPassword">Confirm password</label>
+                    <input type="password" name="confirmPassword" [(ngModel)]="confirmPassword" class="form-control">
+                </div>
+            </div>
+        </div>
+
+        <!-- Login form -->
+        <ng-container *ngIf="authFormType === 'login'">
+            <div class="row">
+                <div class="col-12 mb-1">
+                    <label for="username-email">Username or email</label>
+                    <input type="text" class="form-control">
+                </div>
+                <div class="col-12">
+                    <label for="password">Password</label>
+                    <input type="password" class="form-control">
+                </div>
+            </div>
+        </ng-container>
+
+        <div class="form-auth-controls mt-3 mb-3">
+            <div class="row">
+                <div class="col-auto ms-auto">
+                    <button type="button" class="btn fw-bold " [routerLink]="['/']">Cancel</button>
+                </div>
+                <div class="col-auto me-auto">
+                    <button class="btn btn-primary"
+                    *ngIf="authFormType === 'register'">Register</button>
+                    <button class="btn btn-primary"
+                    *ngIf="authFormType === 'login'">Login</button>
+                </div>
+            </div>
+        </div>
+    </form>
+
+    <div class="form-footer w-25 me-auto ms-auto text-center">
+        <div class="alert alert-secondary">
+
+            <ng-container *ngIf="authFormType === 'register'">
+                <h6 class="small">Already have an account?</h6>
+                <h6 class="text-decoration-underline small fw-bold"
+                [routerLink]="['/auth/login']" id="auth-router">Login here</h6>
+            </ng-container> 
+
+            <ng-container *ngIf="authFormType === 'login'">
+                <h6 class="small">Don't have an account yet?</h6>
+                <h6 class="text-decoration-underline small fw-bold"
+                [routerLink]="['/auth/register']" id="auth-router">Create an account</h6>
+            </ng-container>
+        </div>
+    </div>
+</div>
