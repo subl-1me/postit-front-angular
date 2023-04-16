@@ -27,12 +27,12 @@
         <ng-container *ngIf="authFormType === 'login'">
             <div class="row">
                 <div class="col-12 mb-1">
-                    <label for="username-email">Username or email</label>
-                    <input type="text" class="form-control">
+                    <label for="value">Username or email</label>
+                    <input type="text" id="value" name="userValue" [(ngModel)]="userValue" class="form-control">
                 </div>
                 <div class="col-12">
                     <label for="password">Password</label>
-                    <input type="password" class="form-control">
+                    <input type="password" id="password" name="password" [(ngModel)]="user.password" class="form-control">
                 </div>
             </div>
         </ng-container>

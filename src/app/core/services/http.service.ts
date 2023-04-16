@@ -1,22 +1,35 @@
-import { Injectable } from '@angular/core';
+import { Injectable } from '@angular/core'; 
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
 import { User } from '../../models/user.model';
+import { config } from '../../core/constants/config';
 
 @Injectable({
   providedIn: 'root'
 })
 export class HttpService {
 
+  private headers: HttpHeaders = new HttpHeaders().set('Content-Type', 'application/json');
+
   constructor(
     private http: HttpClient,
-    private headers: HttpHeaders
   ) { }
 
-  public postRequest(model:string, body:any):Observable<any>{
-    const headers = this.headers.set('Content-Type', 'application/json');
+  public postRequest(model:string, body:any):Observable<User>{
 
-    return this.http.post<User>('http://localhost:3000/api/user', body, { headers: headers });
+    return this.http.post<User>(config.API_URL + 'user', body, { headers: this.headers });
+  }
+
+  public authRegister(body:any):Observable<any>{
+    return this.http.post(config.API_URL + 'user', body, { headers: this.headers });
+  }
+
+  public authLogin(password:string, userValue:string):Observable<any>{
+    const body = {
+      value: userValue,
+      password: password
+    }
+    return this.http.post(config.API_URL + 'user/login', body, { headers: this.headers });
   }
 }

@@ -11,6 +11,7 @@ import { AuthModule } from './feature/auth/auth.module';
 import { RouterModule } from '@angular/router';
 import { HomeModule } from './feature/home/home.module';
 import { AuthenticateFormModule } from './shared/components/authenticate-form/authenticate-form.module';
+import { HttpClientModule } from '@angular/common/http';
 
 
 @NgModule({
@@ -24,7 +25,8 @@ import { AuthenticateFormModule } from './shared/components/authenticate-form/au
     AuthenticateFormModule,
     AuthModule,
     RouterModule,
-    HomeModule
+    HomeModule,
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [ AppComponent ]

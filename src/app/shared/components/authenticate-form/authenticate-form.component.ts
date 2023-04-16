@@ -14,6 +14,7 @@ export class AuthenticateFormComponent implements OnInit {
 
   public user:User;
   public confirmPassword:string;
+  public userValue:string;
 
   @Input() authFormType: string;
 
@@ -23,6 +24,7 @@ export class AuthenticateFormComponent implements OnInit {
     this.authFormType = '';
     this.user = { username: '', email: '', password: '' }
     this.confirmPassword = '';
+    this.userValue = '';
   }
 
   ngOnInit(): void {
@@ -38,17 +40,37 @@ export class AuthenticateFormComponent implements OnInit {
     console.log(`Processing ${this.authFormType}...`)
     console.log(this.user);
 
-    //TODO: Fix an error that accours when send the request with this service :(
     if(this.authFormType === 'register'){
-      this.httpService.postRequest('user', this.user).subscribe((response) => {
-        console.log('Getting response form http service...');
+      this.httpService.authRegister(this.user).subscribe((response) => {
+        console.log('Getting resopnse from auth-register method...');
         console.log(response);
+        return;
+      })
+    }
+
+    // then its login
+    if(this.authFormType === 'login'){
+      this.httpService.authLogin(this.user.password, this.userValue).subscribe((response) => {
+        console.log('Getting response from auth-login method...');
+        console.log(response);
+        this.setAuthCredentials(response.token, response.user_id);
+
+        return;
       })
     }
   }
 
   private doesPasswordMatch():boolean{
     return this.user.password === this.confirmPassword;
+  }
+
+  private setAuthCredentials(token:string, _id:string):void{
+    const auth_data = {
+      _id: _id,
+      token: token
+    }
+
+    localStorage.setItem('auth_data', JSON.stringify(auth_data));
   }
 
 }
